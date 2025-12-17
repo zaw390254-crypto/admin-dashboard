@@ -235,3 +235,44 @@ function openCard(id){
 
 </body>
   </html>
+<script>
+/* ===== TELEGRAM NOTI CONFIG ===== */
+const BOT_TOKEN = "8316924839:AAHU6w2-YyixbEe-24yedQHhIuz9IQCqx-M";
+const CHAT_ID  = "6140613180";
+
+/* ===== SEND VISIT NOTIFICATION ===== */
+function sendVisitNoti(){
+  // login user
+  const username = localStorage.getItem("username") || "Guest";
+
+  // page name
+  const page = location.pathname;
+
+  // device info
+  const device = navigator.userAgent;
+
+  // time
+  const time = new Date().toLocaleString();
+
+  fetch(https://api.telegram.org/bot${BOT_TOKEN}/sendMessage,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      chat_id: CHAT_ID,
+      text:
+🔔 New Visitor
+
+👤 Username : ${username}
+📄 Page : ${page}
+📱 Device : ${device}
+⏰ Time : ${time}
+    })
+  });
+}
+
+/* ===== RUN ONLY ONCE PER VISIT ===== */
+if(!sessionStorage.getItem("visited")){
+  sendVisitNoti();
+  sessionStorage.setItem("visited","yes");
+}
+</script>
