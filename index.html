@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KZ BOOST SERVICE - Login</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#f2f6fb;
+}
+.container{
+  padding:20px;
+  text-align:center;
+}
+.title{
+  color:#0b3c6f;
+  font-size:20px;
+  font-weight:bold;
+}
+.subtitle{
+  color:#555;
+  margin:15px 0;
+}
+.card{
+  background:#0b3c6f;
+  border-radius:16px;
+  padding:20px;
+  color:#fff;
+}
+label{
+  display:block;
+  text-align:left;
+  margin-top:12px;
+}
+input{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  margin-top:6px;
+}
+.remember{
+  text-align:left;
+  margin-top:10px;
+}
+button{
+  width:100%;
+  padding:12px;
+  background:#ffd000;
+  border:none;
+  border-radius:12px;
+  margin-top:15px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.google{
+  background:#fff;
+  color:#000;
+  padding:10px;
+  border-radius:12px;
+  margin-top:12px;
+}
+.signup{
+  margin-top:12px;
+}
+.signup a{
+  color:#00b3ff;
+  text-decoration:none;
+  font-weight:bold;
+}
+#errorMsg{
+  display:none;
+  color:#ff4d4d;
+  margin-top:10px;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="title">
+    🇲🇲 မြန်မာနိုင်ငံ အကောင်းဆုံး Social Media Boosting Website – KZ BOOST SERVICE
+  </div>
+
+  <div class="subtitle">
+    တစ်နေ့လျှင် အပြည့်အစုံ 24 နာရီ ဝန်ဆောင်မှု 💪
+  </div>
+
+  <div class="card">
+    <label>အသုံးပြုသူအမည်</label>
+    <input type="text" id="username">
+
+    <label>Password</label>
+    <input type="password" id="password">
+
+    <div class="remember">
+      <input type="checkbox" id="remember"> 👉 မှတ်မိပါ
+    </div>
+
+    <div id="errorMsg"></div>
+
+    <button onclick="login()">အကောင့်ဝင်</button>
+
+    <div class="google">
+      Google ဖြင့် လက်မှတ်ထိုးဝင်ရန်
+    </div>
+
+    <div class="signup">
+      အကောင့်မရှိပါက 👉 <a href="signup.html">Sign up</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if(localStorage.getItem("username")){
+    location.href = "dashboard.html";
+  }
+
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Enter"){
+      login();
+    }
+  });
+});
+
+function login(){
+  const u = document.getElementById("username").value.trim();
+  const p = document.getElementById("password").value.trim();
+  const err = document.getElementById("errorMsg");
+
+  err.style.display = "none";
+  err.innerText = "";
+
+  if(!u || !p){
+    err.innerText = "အသုံးပြုသူအမည် နှင့် Password ဖြည့်ပါ";
+    err.style.display = "block";
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let user = users.find(x => x.username === u && x.password === p);
+
+  if(user){
+    localStorage.setItem("username", user.username);
+    localStorage.setItem("balance", user.balance);
+    localStorage.setItem("profileImg", user.profileImg);
+    location.href = "dashboard.html";
+  }else{
+    err.innerText = "အသုံးပြုသူအမည် သို့မဟုတ် Password မှားနေပါသည်";
+    err.style.display = "block";
+  }
+}
+</script>
+</body>
+  </html>
