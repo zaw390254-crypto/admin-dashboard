@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KZ BOOST SERVICE - Sign up</title>
+
+<style>
+body{margin:0;font-family:sans-serif;background:#f2f6fb}
+.container{padding:20px}
+.card{background:#0b3c6f;border-radius:16px;padding:20px;color:#fff}
+h3{text-align:center}
+label{display:block;margin-top:12px}
+small{color:#cfd8ff;font-size:12px}
+input{width:100%;padding:10px;border-radius:10px;border:none;margin-top:6px}
+input[type=file]{background:#fff;color:#000}
+.profile-preview{text-align:center;margin-top:10px}
+.profile-preview img{width:90px;height:90px;border-radius:50%;display:none;border:3px solid #ffd000}
+button{width:100%;padding:12px;background:#ffd000;border:none;border-radius:12px;margin-top:15px;font-size:16px;font-weight:bold}
+.check{margin-top:12px}
+.error{display:none;color:#ff4d4d;text-align:center;margin-top:10px;font-weight:bold}
+.login{text-align:center;margin-top:15px}
+.login a{color:#00b3ff;font-weight:bold;text-decoration:none}
+</style>
+</head>
+
+<body>
+<div class="container">
+<div class="card">
+
+<h3>Profile ထည့်ရန်</h3>
+
+<label>Profile ပုံ</label>
+<input type="file" id="profile" accept="image/*">
+
+<div class="profile-preview">
+  <img id="preview">
+</div>
+
+<label>Username</label>
+<input type="text" id="username">
+<small>စာလုံးအသေး (a-z) + နံပါတ် (0-9)</small>
+
+<label>Gmail</label>
+<input type="email" id="gmail">
+
+<label>Password</label>
+<input type="password" id="password">
+<small>Password အနည်းဆုံး 6 လုံး</small>
+
+<label>အတည်ပြု Password</label>
+<input type="password" id="confirm">
+
+<div class="check">
+<input type="checkbox" id="agree"> ဖောင်မှန်ကန်စွာ ဖြည့်ပြီးပါပြီ
+</div>
+
+<div id="errorMsg" class="error"></div>
+
+<button onclick="signup()">အကောင့်ဖွင့်</button>
+
+<div class="login">
+အကောင့်ရှိပါသလား 👉 <a href="login.html">အကောင့်ဝင်</a>
+</div>
+
+</div>
+</div>
+
+<script>
+document.getElementById("profile").addEventListener("change", function(){
+ const f=this.files[0];
+ const preview=document.getElementById("preview");
+ if(f){
+  preview.src=URL.createObjectURL(f);
+  preview.style.display="block";
+ }
+});
+
+function signup(){
+ const username=document.getElementById("username").value.trim();
+ const gmail=document.getElementById("gmail").value.trim();
+ const pass=document.getElementById("password").value;
+ const con=document.getElementById("confirm").value;
+ const agree=document.getElementById("agree").checked;
+ const file=document.getElementById("profile").files[0];
+ const error=document.getElementById("errorMsg");
+
+ error.style.display="none";
+ error.innerText="";
+
+ if(!/^[a-z0-9]+$/.test(username)) return showError("Username သည် စာလုံးအသေး + နံပါတ်သာဖြစ်ရပါမည်");
+ if(!gmail) return showError("Gmail ထည့်ပါ");
+ if(pass.length < 6) return showError("Password အနည်းဆုံး 6 လုံး ဖြစ်ရပါမည်");
+ if(pass !== con) return showError("Password နှစ်ခု မတူပါ");
+ if(!file) return showError("Profile ပုံ တင်ပါ");
+ if(!agree) return showError("Checkbox ကို အမှန်ခြစ်ပါ");
+
+ let users = JSON.parse(localStorage.getItem("users")) || [];
+ if(users.find(u => u.username === username)) return showError("ဒီ Username ကို အသုံးပြုပြီးသားပါ");
+
+ const reader = new FileReader();
+ reader.onload = function(){
+  const newUser = {
+    username: username,
+    password: pass,
+    gmail: gmail,
+    balance: 0,
+    profileImg: reader.result
+  };
+
+  users.push(newUser);
+  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("username", newUser.username);
+  localStorage.setItem("balance", newUser.balance);
+  localStorage.setItem("profileImg", newUser.profileImg);
+  location.href = "dashboard.html";
+ }
+ reader.readAsDataURL(file);
+}
+
+function showError(msg){
+ const error=document.getElementById("errorMsg");
+ error.innerText=msg;
+ error.style.display="block";
+}
+</script>
+</body>
+  </html>
