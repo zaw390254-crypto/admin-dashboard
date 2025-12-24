@@ -327,8 +327,14 @@ function placeOrder(){
 </script>
 <script>
 function logout(){
-;  
+;
   // 🔁 Login page ကိုပြန်ပို့
   window.location.href = "index.html";
 }
-  </script>
+
+function logout(){
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("currentUser");
+  location.href = "index.html";
+}
+</script>
