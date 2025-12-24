@@ -324,4 +324,14 @@ function placeOrder(){
   link.value = "";
   price.value = "";
 }
+</script>
+<script>
+function logout(){
+  // 🔥 login state ဖျက်
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("username");
+
+  // 🔁 Login page ကိုပြန်ပို့
+  window.location.href = "index.html";
+}
   </script>
