@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<title>KZ BOOST SERVICE - Signup</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#f2f5f8;
+}
+.header{text-align:center;padding:30px 15px}
+.header h2{color:#0b3c66;margin-bottom:5px}
+.header p{color:#555;font-size:14px}
+.box{
+  width:330px;margin:0 auto 30px;
+  background:#fff;padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+label{font-size:14px;color:#333}
+input{
+  width:100%;padding:12px;
+  margin:8px 0 15px;
+  border-radius:8px;border:1px solid #ccc;
+}
+button{
+  width:100%;padding:12px;
+  background:#6c6a8e;border:none;
+  border-radius:10px;font-size:16px;
+  color:#fff;font-weight:bold;
+}
+.error{color:red;font-size:13px;margin-bottom:10px;text-align:center}
+.footer{text-align:center;margin-top:15px;font-size:14px}
+.footer a{color:#1e88e5;text-decoration:none}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h2>🚀 KZ BOOST SERVICE</h2>
+  <p>မြန်မာနိုင်ငံအတွက် Social Media Boosting Website 🇲🇲</p>
+</div>
+
+<div class="box">
+  <div class="error" id="err"></div>
+
+  <label>အသုံးပြုသူအမည် (Username)</label>
+  <input id="username">
+
+  <label>Gmail</label>
+  <input id="email">
+
+  <label>Password</label>
+  <input id="pass" type="password">
+
+  <label>Password အတည်ပြုပါ</label>
+  <input id="pass2" type="password">
+
+  <button onclick="signup()">အကောင့်ဖန်တီးမည်</button>
+
+  <div class="footer">
+    Account ရှိပြီးသားလား? 👉 <a href="index.html">Login</a>
+  </div>
+</div>
+
+<script>
+function signup(){
+  let u=username.value.trim();
+  let e=email.value.trim();
+  let p=pass.value;
+  let p2=pass2.value;
+  let err=document.getElementById("err");
+
+  let reg=/^[a-z0-9]+$/;
+
+  if(!u||!e||!p||!p2){
+    err.innerText="အချက်အလက်အားလုံးကို ပြည့်စုံအောင် ဖြည့်ပါ";return;
+  }
+  if(!reg.test(u)){
+    err.innerText="Username ကို a-z,0-9 ပဲသုံးပါ";return;
+  }
+  if(p.length<6){
+    err.innerText="Password အနည်းဆုံး 6 လုံး";return;
+  }
+  if(p!==p2){
+    err.innerText="Password မတူပါ";return;
+  }
+
+  /* ✅ မပျက်ဘဲ ထပ်ထည့်ထားတဲ့အပိုင်း */
+  localStorage.setItem("username",u);
+  localStorage.setItem("password",p);   // ⭐ အရေးကြီး
+  localStorage.setItem("email",e);
+  localStorage.setItem("balance","0");
+  localStorage.setItem("spent","0");
+  localStorage.setItem("completedOrders","0");
+
+  location.href="dashboard.html";
+}
+</script>
+
+</body>
+  </html>
