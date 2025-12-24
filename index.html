@@ -135,6 +135,10 @@ function login(){
     return;
   }
 
+  // ✅ LOGIN STATE သိမ်း
+  localStorage.setItem("isLoggedIn","yes");
+  localStorage.setItem("currentUser", u);
+
   location.href = "dashboard.html";
 }
 </script>
