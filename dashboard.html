@@ -1,272 +1,327 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KZ BOOST SERVICE</title>
-<t<style>
+<title>Dashboard</title>
 
-body{mar::;;font-famil::sans-seri;;backgroun:#0b3c6f;;colo:#ffff
-..header{displa::fle;;justify-conten::space-betwee;;align-item::cente;;paddin::14p;;backgroun:#08315aa
-..menu-btn{font-siz::22p;;curso::pointer
+<style>
+:root{
+  --bg:#f4f5fb;
+  --card:#ffffff;
+  --primary:#5f5b7a;
+  --border:#e6e6ee;
+}
+*{box-sizing:border-box;font-family:system-ui}
+body{margin:0;background:var(--bg)}
 
-..profile
-  backgroun:#f4f6f8;;colo:#0b3c6f;
-  margi::15p;;paddin::15p;;border-radiu::18p;
-  displa::fle;;ga::15p;;align-item::cente
+.header{
+  background:#fff;padding:14px 16px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--border);
+}
+.menu-btn{font-size:22px;cursor:pointer}
 
+.menu{display:none;background:#fff;border-bottom:1px solid var(--border)}
+.menu a{
+  display:block;padding:14px 16px;
+  text-decoration:none;color:#000;
+  border-top:1px solid var(--border)
+}
 
-..profil  img
-  widt::70p;;heigh::70p;;border-radiu::50;
-  borde::3p  soli #ffd000;;object-fi::cove
+.card{
+  background:#fff;margin:12px;padding:18px;
+  border-radius:14px;border:1px solid var(--border)
+}
 
+label{display:block;margin:12px;font-weight:600}
 
+.dropdown{
+  margin:6px 12px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;background:#fff;
+}
+.dropdown-header{
+  display:flex;align-items:center;gap:10px;
+  padding:12px;cursor:pointer;
+}
+.dropdown-header img,
+.dropdown-item img{width:22px;height:22px}
 
-..icon-grid
-  displa::gri;;grid-template-column::repeat(,,1fr;
-  ga::12p;;margi::15p
+.dropdown-list{display:none;border-top:1px solid var(--border)}
+.dropdown-item{
+  display:flex;align-items:center;gap:10px;
+  padding:12px;cursor:pointer;
+}
+.dropdown-item:hover{background:#f2f3ff}
 
+input{
+  width:100%;margin:6px 0 12px;
+  padding:12px;border-radius:10px;
+  border:1px solid var(--border)
+}
 
-..icon-box
-  backgroun:#fff;;colo:#0b3c6f;
-  border-radiu::16p;;paddin::14p  8p;
-  text-alig::cente;;curso::pointe
+.info{
+  background:#eef0ff;margin:12px;
+  padding:14px;border-radius:12px;
+  font-size:14px;line-height:1.6
+}
 
+.alert{
+  display:none;
+  margin:12px;
+  padding:14px;
+  border-radius:12px;
+  background:#e6ffe6;
+  color:#0a7a2f;
+  font-weight:600;
+}
 
-..icon-bo  img{widt::42p;;heigh::42p;;margin-botto::6px
-
-..list-box
-  backgroun:#fff;;colo:#0b3c6f;
-  margi::15p;;border-radiu::16p;;overflo::hidde
-
-
-..list-item
-  paddin::14p;;border-botto::1p  soli #eee;
-  font-weigh::bol;;curso::pointe
-
-
-
-..card
-  backgroun:#fff;;colo:#0b3c6f;
-  margi::15p;;paddin::15p;;border-radiu::16p
-
-
-..hidden{displa::none
-
-..rules
-  backgroun:#f2f6fb;;borde::1p  soli #ddd;
-  border-radiu::12p;;paddin::12p;;margi::10p  ;
-  font-siz::14p
-
-
-
-
-input
-  widt::100;;paddin::10p;;border-radiu::10p;
-  borde::1p  soli #ccc;;margin-to::5p
-
-
-..order
-  backgroun:#ffd000;;paddin::12p;
-  border-radiu::12p;;text-alig::cente;
-  font-weigh::bol;;margin-to::15p
-
-
+button{
+  width:calc(100% - 24px);
+  margin:12px;padding:14px;
+  border:none;border-radius:12px;
+  background:var(--primary);
+  color:#fff;font-size:16px
+}
 </style>
 </head>
 
 <body>
 
-<script>
-if(!localStorage.getItem("username")){
- location.href="index.html";
-}
-</script>
-
 <div class="header">
- <div>🚀 KZ BOOST SERVICE</div>
- <div class="menu-btn">☰</div>
+  <h3>Order တင်ရန်</h3>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </div>
 
-<div class="profile">
- <img id="profileImg">
- <div>
-  <h3 id="username"></h3>
-  <p>Balance : <b id="balance">0 Ks</b></p>
- </div>
+<div class="menu" id="menu">
+  <a href="#">🛒 Orderတင်ရန်</a>
+  <a href="order-history.html">📦 Order History ကြည့်ရန်</a>
+  <a href="deposit.html">💳 Deposit / ငွေထည့်ရန်</a>
+  <a href="#" onclick="logout()">🚪 Logout</a>
 </div>
 
-<!-- ICONS -->
-<div class="icon-grid">
- <div class="icon-box" onclick="="openServic'tiktokList't">
-  <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
-  <b>TikTok</b>
- </div>
- <div class="icon-box" onclick="="openServic'facebookList't">
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
-  <b>Facebook</b>
- </div>
+<div class="card">
+  <h2 id="usernameText"></h2>
+  <p>Welcome to kzboostservice!</p>
 </div>
 
-<!-- ================= TIKTOK ================= -->
-<div id="tiktokList" class="list-box hidden">
- <div class="list-item" onclick="="openCar'ttLike'e">TikTok Like</div>
- <div class="list-item" onclick="="openCar'ttView'w">TikTok View</div>
- <div class="list-item" onclick="="openCar'ttFollow'w">TikTok Followers</div>
- <div class="list-item" onclick="="openCar'ttLV'V">TikTok Like + View</div>
+<div class="card">
+  <h2 id="balanceText">≈ Ks0</h2>
+  <p>Account balance</p>
 </div>
 
-<div id="ttLike" class="card hidden">
-<h3>TikTok Like – No Drop (1000 = 3000Ks)</h3>
-<div class="rules">
-• Public video link ပဲပို့ပေးပါ<br>
-• သတ်မှတ်ထားတဲ့ပမာဏအောက်မရေးရ<br>
-• Public မဖြစ်ပါက ငွေရှုံးပါ
-</div>
-<label>Link</label><input>
-<label>Amount (1000 – 1000000)</label>
-<input type="number" oninput="likePrice.innerText=this.value*3">
-<b>ကျသင့်ငွေ : <span id="likePrice">0</span> Ks</b><br>
-<b>Average Time : 24hr</b>
-<div class="order">Order တင်ရန်</div>
+<label>အမျိုးအစား</label>
+<div class="dropdown">
+  <div class="dropdown-header" onclick="toggleCategory()">
+    <img id="categoryIcon">
+    <span id="selectedCategory"></span>
+  </div>
+  <div class="dropdown-list" id="categoryList"></div>
 </div>
 
-<div id="ttView" class="card hidden">
-<h3>TikTok View – No Drop (1000 = 1200Ks)</h3>
-<div class="rules">
-• Public video link ပဲပို့ပေးပါ<br>
-• သတ်မှတ်ထားတဲ့ပမာဏအောက်မရေးရ<br>
-• Public မဖြစ်ပါက ငွေရှုံးပါ
-</div>
-<label>Link</label><input>
-<label>Amount (5000 – 1000000)</label>
-<input type="number" oninput="viewPrice.innerText=this.value*1.2">
-<b>ကျသင့်ငွေ : <span id="viewPrice">0</span> Ks</b><br>
-<b>Average Time : 24hr / 72hr</b>
-<div class="order">Order တင်ရန်</div>
-</div>
+<div class="info" id="serviceInfo"></div>
+<div class="alert" id="alertBox"></div>
 
-<div id="ttFollow" class="card hidden">
-<h3>TikTok Followers – No Drop (1000 = 25000Ks)</h3>
-<div class="rules">
-• Account Public ဖြစ်ရပါမယ်<br>
-• သတ်မှတ်ထားတဲ့ပမာဏအောက်မရေးရ<br>
-• Public မဖြစ်ပါက ငွေရှုံးပါ
-</div>
-<label>Profile Link</label><input>
-<label>Amount (1000 – 1000000)</label>
-<input type="number" oninput="folPrice.innerText=this.value*25">
-<b>ကျသင့်ငွေ : <span id="folPrice">0</span> Ks</b><br>
-<b>Average Time : 24hr / 5Day</b>
-<div class="order">Order တင်ရန်</div>
-</div>
+<label>Average Time
+<input id="avgTime" readonly>
+</label>
 
-<div id="ttLV" class="card hidden">
-<h3>TikTok Like + View (Lifetime) – 1000 = 2100Ks</h3>
-<div class="rules">
-• Public video link ပဲပို့ပေးပါ<br>
-• သတ်မှတ်ထားတဲ့ပမာဏအောက်မရေးရ<br>
-• Public မဖြစ်ပါက ငွေရှုံးပါ
-</div>
-<label>Link</label><input>
-<label>Amount (1000 – 1000000)</label>
-<input type="number" oninput="lvPrice.innerText=this.value*2.1">
-<b>ကျသင့်ငွေ : <span id="lvPrice">0</span> Ks</b><br>
-<b>Average Time : 24hr</b>
-<div class="order">Order တင်ရန်</div>
-</div>
+<label>Link
+<input id="link" placeholder="https://">
+</label>
 
-<!-- ================= FACEBOOK ================= -->
-<div id="facebookList" class="v class="rules">
-• Account Public ဖြစ်ရပါမယ်<br>
-• သတ်မှတ်ထားတဲ့ပမာဏအောက်မရေးရ<br>
-• Public မဖြစ်ပါက ငွေရှုံးပါ
-</div>
-<label>Profile Link</label><input>
-<label>Amount (1000 – 1000000)</label>
-<input type="number" oninput="folPrice.innerText=this.value*25">
-<b>ကျသင့်ငွေ : <span id="folPrice">0</span> Ks</b><br>
-<b>Average Time : 24hr / 5Day</b>
-<div class="order">Order တင်ရန်</div>
-</div>
+<label>အရေအတွက်
+<input id="amount" type="number" oninput="calculatePrice()">
+</label>
 
-<div id="ttLV" class="card hidden">
-<h3>TikTok Like + View (Lifetime) – 1000 = 2100Ks</h3>
-<div class="rules">
-• Public video link ပဲပို့ပေးပါ<br>
-• သတ်မှတ်ထားတဲ့ပမာဏအောက်မရေးရ<br>
-• Public မဖြစ်ပါက ငွေရှုံးပါ
-</div>
-<label>Link</label><input>
-<label>Amount (1000 – 1000000)</label>
-<input type="number" oninput="lvPrice.innerText=this.value*2.1">
-<b>ကျသင့်ငွေ : <span id="lvPrice">0</span> Ks</b><br>
-<b>Average Time : 24hr</b>
-<div class="order">Order တင်ရန်</div>
-</div>
+<label>ကျသင့်ငွေ
+<input id="price" readonly>
+</label>
 
-<!-- ================= FACEBOOK ================= -->
-<div id="facebookList" class="list-box hidden">
- <div class="list-item" onclick="openCard('fbProfile')">FB Profile Follower</div>
- <div class="list-item" onclick="openCard('fbPage')">FB Page Like + Follower</div>
- <div class="list-item" onclick="openCard('fbReact')">FB Reactions</div>
-</div>
-
-<div id="fbProfile" class="card hidden">
-<h3>Facebook Myanmar Profile Follower (1000 = 17000Ks)</h3>
-<div class="rules">
-• Public link ပဲပို့ပေးပါ<br>
-• မြန်မာလူမျိုးအစစ် ~30% ပါဝင်<br>
-</div>
-<label>Link</label><input>
-<label>Amount (100 – 100000)</label>
-<input type="number" oninput="fbProPrice.innerText=this.value*17">
-<b>ကျသင့်ငွေ : <span id="fbProPrice">0</span> Ks</b><br>
-<b>Average Time : 7 Days</b>
-<div class="order">Order တင်ရန်</div>
-</div>
-
-<div id="fbPage" class="card hidden">
-<h3>Facebook Page Like + Follower (1000 = 11000Ks)</h3>
-<div class="rules">
-• Public link ပဲပို့ပေးပါ<br>
-• Global Follower / Bot<br>
-• Account ထိခိုက်မှုမရှိ
-</div>
-<label>Link</label><input>
-<label>Amount (100 – 100000)</label>
-<input type="number" oninput="fbPagePrice.innerText=this.value*11">
-<b>ကျသင့်ငွေ : <span id="fbPagePrice">0</span> Ks</b><br>
-<b>Average Time : 7 Days</b>
-<div class="order">Order တင်ရန်</div>
-</div>
-
-<div id="fbReact" class="card hidden">
-<h3>Facebook Reactions ❤️👍😍😭😲😡</h3>
-<div class="rules">
-• Reaction တစ်မျိုးချင်းစီဝယ်ရပါမယ်<br>
-• Public link ပို့ပေးပါ
-</div>
-<label>Link</label><input>
-<label>Amount (100 – 100000)</label>
-<input type="number" oninput="fbReactPrice.innerText=this.value*12.5">
-<b>ကျသင့်ငွေ : <span id="fbReactPrice">0</span> Ks</b><br>
-<b>Average Time : 7 Days</b>
-<div class="order">Order တင်ရန်</div>
-</div>
+<button onclick="placeOrder()">Order တင်မယ်</button>
 
 <script>
-username.innerText=localStorage.getItem("username");
-balance.innerText=(localStorage.getItem("balance")||0)+" Ks";
-profileImg.src=localStorage.getItem("profileImg")||"https://via.placeholder.com/100";
+// ===== USER =====
+const username = localStorage.getItem("username") || "testuser";
+localStorage.setItem("username", username);
+usernameText.innerText = username;
 
-function hideAll(){
- document.querySelectorAll(".list-box,.card").forEach(x=>x.classList.add("hidden"));
+// ✅ PAGE LOAD မှာ BALANCE ကို localStorage ကနေ ပြန်ဖော်
+const savedBalance = Number(localStorage.getItem("balance_" + username) || 0);
+balanceText.innerText = "≈ Ks" + savedBalance;
+
+function getBalance(){
+  return Number(localStorage.getItem("balance_" + username) || 0);
 }
-function openService(id){
- hideAll();
- document.getElementById(id).classList.remove("hidden");
+function setBalance(v){
+  localStorage.setItem("balance_" + username, v);
+  balanceText.innerText = "≈ Ks" + v;
 }
-function openCard(id){
- document.querySelectorAll(".card").forEach(x=>x.classList.add("hidden"));
- document.getElementById(id).classList.remos")
+
+// ===== SERVICES =====
+const services = {
+ "Myanmar TikTok Like":{
+   id:609, icon:"https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg",
+   pricePer1000:2000,min:100,max:1000000,avg:"24 hr",
+   info:`<b>609. Myanmar TikTok Likes 🇲🇲</b><br><br>
+   🔹 မြန်မာအကောင့်များ 50% ⭐<br>
+   🔹 Lifetime refill ♻️<br><br>
+   💰 <b>Ks 2,000 / 1000</b>`
+ },
+ "TikTok Like":{
+   id:942, icon:"https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg",
+   pricePer1000:1500,min:100,max:5000000,avg:"2 hr",
+   info:`<b>942. TikTok Likes HQ</b><br><br>
+   🔹 Public linkဖြစ်ရမည်<br>
+   🔹ရက်30အတွင်းပြန်ကျပါကrefillပြန်လုပ်နိုင်သည်<br>
+   🔹View ပါautoတတ်ပါတယ်<br><br>
+   💰 <b>Ks 1,500 / 1000</b>`
+ },
+ "TikTok View":{
+   id:931, icon:"https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg",
+   pricePer1000:800,min:1000,max:999999999,avg:"4 hr",
+   info:`<b>931. TikTok Views</b><br><br>
+    🔹  ♻️ Auto Refill ~ System ဘက်က 24 နာရီတခါစစ်ပါတယ်<br>
+    🔹 ပြန်ကျတာမှုများအားadminစီလာရန်မလို<br>
+   🔹 Public linkကိုသာပို့ပါ။<br><br>
+   💰 <b>Ks 800 / 1000</b>`
+ },
+ "TikTok Follower":{
+   id:758, icon:"https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg",
+   pricePer1000:15000,min:100,max:1000000,avg:"12–24 hr",
+   info:`<b>758. TikTok Followers</b><br><br>
+    🔹 ရက်30အတွင်းပြန်ကျမှုများကိုအခမဲ့ပြန်လုပ်ပါသည်။<br>
+    🔹 Tiktok account linkဖြစ်ရမည်။<br>
+    🔹 အသုံးပြုတဲ့အတွက်‌ေကျးဇူးတင်ပါတယ်။<br><br>
+   💰 <b>Ks 15,000 / 1000</b>`
+ }
+};
+
+let currentService;
+
+// Build dropdown
+for(let k in services){
+  categoryList.innerHTML += `
+  <div class="dropdown-item" onclick="selectCategory('${k}')">
+    <img src="${services[k].icon}">${k}
+  </div>`;
+}
+
+function toggleMenu(){menu.style.display=menu.style.display==="block"?"none":"block";}
+function toggleCategory(){categoryList.style.display=categoryList.style.display==="block"?"none":"block";}
+
+function selectCategory(name){
+  currentService = services[name];
+  selectedCategory.innerText = name;
+  categoryIcon.src = currentService.icon;
+  serviceInfo.innerHTML = currentService.info;
+  avgTime.value = currentService.avg;
+  amount.placeholder = currentService.min+" - "+currentService.max;
+  categoryList.style.display="none";
+  calculatePrice();
+}
+
+function calculatePrice(){
+  let q = +amount.value || 0;
+  price.value = "Ks " + Math.floor((q/1000)*currentService.pricePer1000);
+}
+
+function generateOrderId(){
+  return Math.floor(100000 + Math.random()*900000);
+}
+
+// ================= TELEGRAM CONFIG =================
+const BOT_TOKEN = "8442153049:AAF8v49tuDYjuIyKGd0PyuMTPPpChV4_io0";
+const CHAT_ID = "6140613180";
+
+function sendTelegram(order){
+  const text = `
+📦 *New Order Received*
+━━━━━━━━━━━━━━
+🆔 Order ID : ${order.id}
+👤 User : ${order.user}
+📦 Service : ${order.service}
+🔢 Amount : ${order.amount}
+🔗 Link : ${order.link}
+💰 Cost : Ks ${order.cost}
+⏱ Status : Processing
+━━━━━━━━━━━━━━
+  `;
+
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text: text,
+      parse_mode: "Markdown"
+    })
+  });
+}
+
+// ================= PLACE ORDER =================
+function placeOrder(){
+  alertBox.style.display = "none";
+
+  let q = +amount.value;
+  let cost = Math.floor((q/1000) * currentService.pricePer1000);
+
+  if(!link.value || !q){
+    alertBox.innerHTML = "❌ ပြည့်စုံအောင်ထည့်ပါ";
+    alertBox.style.display = "block";
+    return;
+  }
+
+  if(getBalance() < cost){
+    alertBox.innerHTML = "❌ Balance မလုံလောက်ပါ";
+    alertBox.style.display = "block";
+    return;
+  }
+
+  // 💳 Balance ဖြတ်
+  setBalance(getBalance() - cost);
+
+  const orderId = generateOrderId();
+
+  // ⏱ avg time (minutes)
+  let avgMin = 60;
+  if(currentService.avg.includes("2")) avgMin = 120;
+  if(currentService.avg.includes("4")) avgMin = 240;
+  if(currentService.avg.includes("12")) avgMin = 720;
+
+  // 🧾 Order object
+  const order = {
+    id: orderId,
+    user: username,
+    service: `${currentService.id} ${selectedCategory.innerText}`,
+    amount: q,
+    link: link.value,
+    cost: cost,
+    createdAt: Date.now(),
+    avgMinutes: avgMin
+  };
+
+  // 💾 Save order
+  const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+  orders.push(order);
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  // 🚀 Telegram ကိုပို့
+  sendTelegram(order);
+
+  // ✅ Success message
+  alertBox.innerHTML = `
+    ✅ <b>Order တင်ခြင်းစတင်နေပါသည်</b><br><br>
+    🆔 Order ID : <b>${orderId}</b><br>
+    📦 Service : <b>${order.service}</b><br>
+    🔢 Amount : <b>${q}</b><br>
+    🔗 Link : <b>${link.value}</b>
+  `;
+  alertBox.style.display = "block";
+
+  amount.value = "";
+  link.value = "";
+  price.value = "";
+}
+  </script>
