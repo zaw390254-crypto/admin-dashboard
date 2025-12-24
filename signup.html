@@ -2,127 +2,104 @@
 <html lang="my">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KZ BOOST SERVICE - Sign up</title>
+<title>KZ BOOST SERVICE - Signup</title>
 
 <style>
-body{margin:0;font-family:sans-serif;background:#f2f6fb}
-.container{padding:20px}
-.card{background:#0b3c6f;border-radius:16px;padding:20px;color:#fff}
-h3{text-align:center}
-label{display:block;margin-top:12px}
-small{color:#cfd8ff;font-size:12px}
-input{width:100%;padding:10px;border-radius:10px;border:none;margin-top:6px}
-input[type=file]{background:#fff;color:#000}
-.profile-preview{text-align:center;margin-top:10px}
-.profile-preview img{width:90px;height:90px;border-radius:50%;display:none;border:3px solid #ffd000}
-button{width:100%;padding:12px;background:#ffd000;border:none;border-radius:12px;margin-top:15px;font-size:16px;font-weight:bold}
-.check{margin-top:12px}
-.error{display:none;color:#ff4d4d;text-align:center;margin-top:10px;font-weight:bold}
-.login{text-align:center;margin-top:15px}
-.login a{color:#00b3ff;font-weight:bold;text-decoration:none}
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#f2f5f8;
+}
+.header{text-align:center;padding:30px 15px}
+.header h2{color:#0b3c66;margin-bottom:5px}
+.header p{color:#555;font-size:14px}
+.box{
+  width:330px;margin:0 auto 30px;
+  background:#fff;padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+label{font-size:14px;color:#333}
+input{
+  width:100%;padding:12px;
+  margin:8px 0 15px;
+  border-radius:8px;border:1px solid #ccc;
+}
+button{
+  width:100%;padding:12px;
+  background:#6c6a8e;border:none;
+  border-radius:10px;font-size:16px;
+  color:#fff;font-weight:bold;
+}
+.error{color:red;font-size:13px;margin-bottom:10px;text-align:center}
+.footer{text-align:center;margin-top:15px;font-size:14px}
+.footer a{color:#1e88e5;text-decoration:none}
 </style>
 </head>
 
 <body>
-<div class="container">
-<div class="card">
 
-<h3>Profile ထည့်ရန်</h3>
-
-<label>Profile ပုံ</label>
-<input type="file" id="profile" accept="image/*">
-
-<div class="profile-preview">
-  <img id="preview">
+<div class="header">
+  <h2>🚀 KZ BOOST SERVICE</h2>
+  <p>မြန်မာနိုင်ငံအတွက် Social Media Boosting Website 🇲🇲</p>
 </div>
 
-<label>Username</label>
-<input type="text" id="username">
-<small>စာလုံးအသေး (a-z) + နံပါတ် (0-9)</small>
+<div class="box">
+  <div class="error" id="err"></div>
 
-<label>Gmail</label>
-<input type="email" id="gmail">
+  <label>အသုံးပြုသူအမည် (Username)</label>
+  <input id="username">
 
-<label>Password</label>
-<input type="password" id="password">
-<small>Password အနည်းဆုံး 6 လုံး</small>
+  <label>Gmail</label>
+  <input id="email">
 
-<label>အတည်ပြု Password</label>
-<input type="password" id="confirm">
+  <label>Password</label>
+  <input id="pass" type="password">
 
-<div class="check">
-<input type="checkbox" id="agree"> ဖောင်မှန်ကန်စွာ ဖြည့်ပြီးပါပြီ
-</div>
+  <label>Password အတည်ပြုပါ</label>
+  <input id="pass2" type="password">
 
-<div id="errorMsg" class="error"></div>
+  <button onclick="signup()">အကောင့်ဖန်တီးမည်</button>
 
-<button onclick="signup()">အကောင့်ဖွင့်</button>
-
-<div class="login">
-အကောင့်ရှိပါသလား 👉 <a href="login.html">အကောင့်ဝင်</a>
-</div>
-
-</div>
+  <div class="footer">
+    Account ရှိပြီးသားလား? 👉 <a href="index.html">Login</a>
+  </div>
 </div>
 
 <script>
-document.getElementById("profile").addEventListener("change", function(){
- const f=this.files[0];
- const preview=document.getElementById("preview");
- if(f){
-  preview.src=URL.createObjectURL(f);
-  preview.style.display="block";
- }
-});
-
 function signup(){
- const username=document.getElementById("username").value.trim();
- const gmail=document.getElementById("gmail").value.trim();
- const pass=document.getElementById("password").value;
- const con=document.getElementById("confirm").value;
- const agree=document.getElementById("agree").checked;
- const file=document.getElementById("profile").files[0];
- const error=document.getElementById("errorMsg");
+  let u=username.value.trim();
+  let e=email.value.trim();
+  let p=pass.value;
+  let p2=pass2.value;
+  let err=document.getElementById("err");
 
- error.style.display="none";
- error.innerText="";
+  let reg=/^[a-z0-9]+$/;
 
- if(!/^[a-z0-9]+$/.test(username)) return showError("Username သည် စာလုံးအသေး + နံပါတ်သာဖြစ်ရပါမည်");
- if(!gmail) return showError("Gmail ထည့်ပါ");
- if(pass.length < 6) return showError("Password အနည်းဆုံး 6 လုံး ဖြစ်ရပါမည်");
- if(pass !== con) return showError("Password နှစ်ခု မတူပါ");
- if(!file) return showError("Profile ပုံ တင်ပါ");
- if(!agree) return showError("Checkbox ကို အမှန်ခြစ်ပါ");
+  if(!u||!e||!p||!p2){
+    err.innerText="အချက်အလက်အားလုံးကို ပြည့်စုံအောင် ဖြည့်ပါ";return;
+  }
+  if(!reg.test(u)){
+    err.innerText="Username ကို a-z,0-9 ပဲသုံးပါ";return;
+  }
+  if(p.length<6){
+    err.innerText="Password အနည်းဆုံး 6 လုံး";return;
+  }
+  if(p!==p2){
+    err.innerText="Password မတူပါ";return;
+  }
 
- let users = JSON.parse(localStorage.getItem("users")) || [];
- if(users.find(u => u.username === username)) return showError("ဒီ Username ကို အသုံးပြုပြီးသားပါ");
+  /* ✅ မပျက်ဘဲ ထပ်ထည့်ထားတဲ့အပိုင်း */
+  localStorage.setItem("username",u);
+  localStorage.setItem("password",p);   // ⭐ အရေးကြီး
+  localStorage.setItem("email",e);
+  localStorage.setItem("balance","0");
+  localStorage.setItem("spent","0");
+  localStorage.setItem("completedOrders","0");
 
- const reader = new FileReader();
- reader.onload = function(){
-  const newUser = {
-    username: username,
-    password: pass,
-    gmail: gmail,
-    balance: 0,
-    profileImg: reader.result
-  };
-
-  users.push(newUser);
-  localStorage.setItem("users", JSON.stringify(users));
-  localStorage.setItem("username", newUser.username);
-  localStorage.setItem("balance", newUser.balance);
-  localStorage.setItem("profileImg", newUser.profileImg);
-  location.href = "dashboard.html";
- }
- reader.readAsDataURL(file);
-}
-
-function showError(msg){
- const error=document.getElementById("errorMsg");
- error.innerText=msg;
- error.style.display="block";
+  location.href="dashboard.html";
 }
 </script>
+
 </body>
-  </html>
+</html>
