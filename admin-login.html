@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Login</title>
+
+<style>
+body{
+  font-family:system-ui;
+  background:#f4f5fb;
+}
+
+.card{
+  max-width:360px;
+  margin:60px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+}
+
+input,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+}
+
+button{
+  background:#5f5b7a;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+}
+
+.link{
+  margin-top:15px;
+  font-size:14px;
+}
+
+.link a{
+  color:#1e88e5;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h3>🔐 Admin Login</h3>
+
+  <input id="pass" type="password" placeholder="Admin Password">
+
+  <button onclick="login()">Login</button>
+
+  <!-- 👇 ဒီနေရာမှာ ထည့် -->
+  <div class="link">
+    ပုံမှန် User ဖြစ်ချင်ပါသလား? <br>
+    👉 <a href="index.html">User Login</a> | 
+    <a href="signup.html">Sign up</a>
+  </div>
+</div>
+
+<script>
+function login(){
+  if(pass.value === "kzboostservicemyanmar12345678910"){ 
+    localStorage.setItem("admin_logged_in","yes");
+    location.href = "admin-balance.html";
+  }else{
+    alert("Password မှားပါတယ်");
+  }
+}
+</script>
+
+</body>
+</html>
